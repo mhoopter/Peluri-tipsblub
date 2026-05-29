@@ -71,7 +71,7 @@ async function loadStilling() {
   el.innerHTML = '<div class="loading">Henter data</div>';
   try {
     const gviz = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&range=`;
-    const sheet = encodeURIComponent(SHEET_STILLING + '!');
+    const sheet = encodeURIComponent(SHEET_STILLING) + '!';
 
     const [navne, gevinst, saldoRows] = await Promise.all([
       fetchCSV(gviz + sheet + 'B2:B7'),

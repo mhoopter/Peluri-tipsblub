@@ -55,7 +55,7 @@ async function fetchURL(url) {
 
 function fmtKr(v) {
   if (v === null || v === undefined || v === '' || v === '-') return '<span class="dash">—</span>';
-  const n = parseFloat(String(v).replace(',', '.'));
+  const n = parseFloat(String(v).replace(/,/g, ''));
   if (isNaN(n)) return '<span class="dash">—</span>';
   return n.toLocaleString('da-DK', { maximumFractionDigits: 0 }) + '&nbsp;kr';
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Peluri Tipsklub</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <div class="rule"></div>
+      <img src="logo.jpg" alt="Peluri" class="logo">
+      <div class="rule"></div>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="stilling">Årets Stilling</button>
+    <button class="tab" data-tab="historik">Historiske Totaler</button>
+  </nav>
+
+  <main>
+    <section id="stilling" class="page active">
+      <div class="loading">Henter data…</div>
+    </section>
+    <section id="historik" class="page">
+      <div class="loading">Henter data…</div>
+    </section>
+  </main>
+
+  <footer>
+    <span id="last-updated"></span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

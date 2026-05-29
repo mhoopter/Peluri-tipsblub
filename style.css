@@ -1,0 +1,294 @@
+:root {
+  --red: #8B1A1A;
+  --red-pale: rgba(139, 26, 26, 0.07);
+  --gold: #B8860B;
+  --gold-bg: #FFF9E6;
+  --silver: #777;
+  --silver-bg: #F4F4F4;
+  --bronze: #A0522D;
+  --bronze-bg: #FDF3EC;
+  --border: #E5DEDE;
+  --text: #1A1A1A;
+  --muted: #888;
+  --bg: #F9F6F6;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── Header ── */
+header {
+  background: #fff;
+  padding: 28px 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rule {
+  width: 100%;
+  height: 1px;
+  background: var(--red);
+  opacity: 0.45;
+}
+
+.logo {
+  width: 240px;
+  display: block;
+  margin: 6px 0;
+}
+
+/* ── Tabs ── */
+.tabs {
+  display: flex;
+  justify-content: center;
+  background: #fff;
+  border-bottom: 2px solid var(--border);
+  padding-top: 6px;
+  gap: 4px;
+}
+
+.tab {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  padding: 13px 36px;
+  border: none;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.tab:hover { color: var(--red); }
+
+.tab.active {
+  color: var(--red);
+  border-bottom-color: var(--red);
+  font-weight: bold;
+}
+
+/* ── Main ── */
+main {
+  max-width: 860px;
+  margin: 40px auto;
+  padding: 0 16px 40px;
+}
+
+.page { display: none; }
+.page.active { display: block; }
+
+/* ── Section heading ── */
+.section-title {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 20px;
+  color: var(--red);
+  text-align: center;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.section-sub {
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.section-rule {
+  width: 48px;
+  height: 1px;
+  background: var(--red);
+  margin: 0 auto 28px;
+  opacity: 0.5;
+}
+
+/* ── Table ── */
+.table-wrap { overflow-x: auto; }
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  box-shadow: 0 2px 16px rgba(139, 26, 26, 0.08);
+  border-radius: 10px;
+  overflow: hidden;
+  min-width: 480px;
+}
+
+.data-table thead tr {
+  background: var(--red);
+}
+
+.data-table th {
+  color: #fff;
+  font-family: Georgia, serif;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 14px 18px;
+  text-align: left;
+  font-weight: normal;
+}
+
+.data-table th.num,
+.data-table td.num {
+  text-align: right;
+}
+
+.data-table td {
+  padding: 15px 18px;
+  border-bottom: 1px solid var(--border);
+  font-size: 15px;
+  vertical-align: middle;
+}
+
+.data-table tbody tr:last-child td { border-bottom: none; }
+
+.data-table tbody tr:hover { background: var(--red-pale) !important; }
+
+/* Medal rows */
+.rank-1 { background: var(--gold-bg); }
+.rank-2 { background: var(--silver-bg); }
+.rank-3 { background: var(--bronze-bg); }
+
+.medal { font-size: 22px; line-height: 1; vertical-align: middle; margin-right: 2px; }
+.rank-num { color: var(--muted); font-size: 14px; width: 28px; display: inline-block; text-align: center; margin-right: 4px; }
+
+.player-name {
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.bold { font-weight: 700; }
+
+.total-col {
+  color: var(--red);
+  font-weight: 700;
+}
+
+.dash { color: #ccc; }
+
+/* ── Saldo box ── */
+.saldo-box {
+  margin: 32px auto 0;
+  max-width: 280px;
+  background: var(--red);
+  color: #fff;
+  text-align: center;
+  padding: 20px 28px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(139, 26, 26, 0.25);
+}
+
+.saldo-label {
+  font-family: Georgia, serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.saldo-value {
+  font-size: 34px;
+  font-weight: 700;
+  margin-top: 6px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Footer ── */
+footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  padding: 20px 16px 32px;
+}
+
+/* ── States ── */
+.loading {
+  text-align: center;
+  color: var(--muted);
+  padding: 64px 16px;
+  font-size: 15px;
+  font-family: Georgia, serif;
+  letter-spacing: 0.5px;
+}
+
+.loading::after {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--red);
+  border-radius: 50%;
+  margin-left: 8px;
+  animation: pulse 1s infinite;
+  vertical-align: middle;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50%       { opacity: 1;   transform: scale(1.2); }
+}
+
+.error-msg {
+  text-align: center;
+  color: var(--red);
+  padding: 48px 16px;
+  font-size: 15px;
+}
+
+/* ── Setup card ── */
+.setup-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 36px;
+  max-width: 580px;
+  margin: 0 auto;
+  box-shadow: 0 2px 16px rgba(139, 26, 26, 0.06);
+}
+
+.setup-card h2 {
+  font-family: Georgia, serif;
+  color: var(--red);
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+
+.setup-card p { color: var(--muted); margin-bottom: 16px; line-height: 1.6; }
+
+.setup-card ol { margin-left: 20px; line-height: 2.2; color: var(--text); }
+
+.setup-card code {
+  background: var(--red-pale);
+  color: var(--red);
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: 'Courier New', monospace;
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .tab { padding: 12px 20px; font-size: 13px; }
+  .logo { width: 190px; }
+  .data-table th,
+  .data-table td { padding: 12px 12px; font-size: 13px; }
+  .saldo-value { font-size: 28px; }
+  .section-title { font-size: 17px; }
+}

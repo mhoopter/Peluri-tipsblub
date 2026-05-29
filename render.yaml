@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: peluri-tipsklub
+    env: static
+    staticPublishPath: .
+    buildCommand: ""
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: no-cache, no-store, must-revalidate

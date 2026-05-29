@@ -70,40 +70,29 @@ async function loadStilling() {
   const el = document.getElementById('stilling');
   el.innerHTML = '<div class="loading">Henter data</div>';
   try {
-    const gviz = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv`;
-    const [dataRows, allRows] = await Promise.all([
-      fetchCSV(gviz + '&range=' + encodeURIComponent(SHEET_STILLING + '!A1:C7')),
-      fetchCSV(sheetUrl(SHEET_STILLING)),
+    const gviz = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&range=`;
+    const sheet = encodeURIComponent(SHEET_STILLING + '!');
+
+    const [navne, gevinst, saldoRows] = await Promise.all([
+      fetchCSV(gviz + sheet + 'B2:B7'),
+      fetchCSV(gviz + sheet + 'C2:C7'),
+      fetchCSV(gviz + sheet + 'B25:B25'),
     ]);
 
-    // row 0 = headers, rows 1-6 = members (B2:C7)
-    const members = dataRows.slice(1).filter(r => r[1] && r[1].trim());
-
-    // Sort by gevinst (col C = index 2) descending
-    members.sort((a, b) => {
-      const va = parseFloat(String(a[2]).replace(/[^\d]/g, '')) || 0;
-      const vb = parseFloat(String(b[2]).replace(/[^\d]/g, '')) || 0;
-      return vb - va;
-    });
-
-    // Saldo: search full sheet for SAMLET SALDO row
-    let saldo = '';
-    for (const r of allRows) {
-      if (r[0] && r[0].toUpperCase().includes('SAMLET')) { saldo = r[1]; break; }
-    }
+    const saldo = saldoRows[0] ? saldoRows[0][0] : '';
     const medals = ['🥇', '🥈', '🥉'];
 
-    const tRows = members.map((r, i) => {
-      const cls    = ['rank-1', 'rank-2', 'rank-3'][i] || '';
-      const rankEl = medals[i]
-        ? `<span class="medal">${medals[i]}</span>`
-        : `<span class="rank-num">${i + 1}.</span>`;
-      const nameW  = i < 3 ? 'bold' : '';
-      return `
-        <tr class="${cls}">
-          <td style="white-space:nowrap">${rankEl}</td>
-          <td><span class="player-name ${nameW}">${r[1]}</span></td>
-          <td class="num ${nameW}">${fmtKr(r[2])}</td>
+    const rows = navne.map((r, i) => ({ name: r[0] || '', amount: gevinst[i] ? gevinst[i][0] : '' }));
+    rows.sort((a, b) => (parseFloat(String(b.amount).replace(/[^\d]/g, '')) || 0) - (parseFloat(String(a.amount).replace(/[^\d]/g, '')) || 0));
+
+    const tRows = rows.map((r, i) => {
+      const cls   = ['rank-1', 'rank-2', 'rank-3'][i] || '';
+      const rank  = medals[i] ? `<span class="medal">${medals[i]}</span>` : `<span class="rank-num">${i + 1}.</span>`;
+      const bold  = i < 3 ? 'bold' : '';
+      return `<tr class="${cls}">
+          <td style="white-space:nowrap">${rank}</td>
+          <td><span class="player-name ${bold}">${r.name}</span></td>
+          <td class="num ${bold}">${fmtKr(r.amount)}</td>
         </tr>`;
     }).join('');
 
@@ -113,18 +102,15 @@ async function loadStilling() {
       <div class="section-rule"></div>
       <div class="table-wrap">
         <table class="data-table">
-          <thead>
-            <tr>
-              <th style="width:52px">#</th>
-              <th>Spiller</th>
-              <th class="num">Gevinst</th>
-            </tr>
-          </thead>
+          <thead><tr>
+            <th style="width:52px">#</th>
+            <th>Spiller</th>
+            <th class="num">Gevinst</th>
+          </tr></thead>
           <tbody>${tRows}</tbody>
         </table>
       </div>
-      ${saldo ? `
-      <div class="saldo-box">
+      ${saldo ? `<div class="saldo-box">
         <div class="saldo-label">Samlet Saldo</div>
         <div class="saldo-value">${fmtSaldo(saldo)}</div>
       </div>` : ''}

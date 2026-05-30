@@ -245,7 +245,7 @@ async function loadTotaler() {
       <h2 class="section-title">Totaler per Medlem</h2>
       <p class="section-sub">Alle sæsoner</p>
       <div class="section-rule"></div>
-      <div class="table-wrap">
+      <div class="scroll-wrap table-wrap">
         <table class="data-table">
           <thead>
             <tr>
@@ -257,8 +257,17 @@ async function loadTotaler() {
           <tbody>${tRows}</tbody>
         </table>
       </div>
+      <p class="swipe-hint">← swipe for alle sæsoner →</p>
     `;
     updateTimestamp();
+
+    // Fade-indicator når der er mere at scrolle
+    const wrap = el.querySelector('.scroll-wrap');
+    if (wrap) {
+      const check = () => wrap.classList.toggle('can-scroll', wrap.scrollLeft < wrap.scrollWidth - wrap.clientWidth - 4);
+      check();
+      wrap.addEventListener('scroll', check, { passive: true });
+    }
   } catch (e) {
     el.innerHTML = `<div class="error-msg">Kunne ikke hente data.<br><small>${e.message}</small></div>`;
   }

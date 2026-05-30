@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Peluri — QR Koder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;600;700&display=swap">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    :root {
+      --red:      #8B1A1A;
+      --red-deep: #5C0F0F;
+      --gold:     #C9A84C;
+      --bg:       #F5F0F0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      background: linear-gradient(160deg, var(--red-deep) 0%, var(--red) 100%);
+      width: 100%;
+      padding: 36px 20px 32px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 130%, rgba(201,168,76,0.2) 0%, transparent 70%);
+    }
+    .logo-wrap {
+      background: #fff;
+      border-radius: 12px;
+      padding: 10px 24px;
+      display: inline-block;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      position: relative;
+    }
+    .logo-wrap img { width: 160px; display: block; }
+
+    main {
+      padding: 48px 24px 64px;
+      width: 100%;
+      max-width: 800px;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      color: var(--red);
+      text-align: center;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .sub {
+      text-align: center;
+      color: #888;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .rule {
+      width: 40px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 auto 40px;
+    }
+
+    .qr-grid {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .qr-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 32px 28px 28px;
+      text-align: center;
+      box-shadow: 0 4px 32px rgba(92,15,15,0.12);
+      flex: 1;
+      min-width: 260px;
+      max-width: 340px;
+    }
+
+    .qr-icon { font-size: 28px; margin-bottom: 10px; }
+
+    .qr-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      color: var(--red);
+      margin-bottom: 4px;
+    }
+    .qr-desc {
+      font-size: 12px;
+      color: #888;
+      margin-bottom: 24px;
+      letter-spacing: 0.3px;
+      line-height: 1.5;
+    }
+
+    .qr-box {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .qr-box canvas,
+    .qr-box img {
+      border-radius: 12px;
+      padding: 10px;
+      background: #fff;
+      box-shadow: 0 0 0 2px rgba(139,26,26,0.10);
+    }
+
+    .qr-url {
+      font-size: 11px;
+      color: #aaa;
+      word-break: break-all;
+      letter-spacing: 0.3px;
+    }
+
+    /* Divider med guld linje */
+    .card-divider {
+      width: 32px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 16px auto;
+    }
+
+    @media print {
+      body { background: #fff; }
+      header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .qr-card { box-shadow: none; border: 1px solid #ddd; }
+      main { padding: 24px; }
+    }
+
+    @media (max-width: 600px) {
+      .qr-grid { flex-direction: column; align-items: center; }
+      .qr-card { max-width: 100%; width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo-wrap">
+    <img src="/logo.jpg" alt="Peluri Tipsklub">
+  </div>
+</header>
+
+<main>
+  <h1>Scan & Kom i gang</h1>
+  <p class="sub">Peluri Tipsklub</p>
+  <div class="rule"></div>
+
+  <div class="qr-grid">
+
+    <!-- Stilling / Overblik -->
+    <div class="qr-card">
+      <div class="qr-icon">📊</div>
+      <p class="qr-title">Stilling</p>
+      <p class="qr-desc">Se årets stilling og<br>historiske totaler</p>
+      <div class="card-divider"></div>
+      <div class="qr-box" id="qr-stilling"></div>
+      <p class="qr-url">peluri-tipsklubben.onrender.com</p>
+    </div>
+
+    <!-- Indberetning / App -->
+    <div class="qr-card">
+      <div class="qr-icon">🎯</div>
+      <p class="qr-title">Indberetning</p>
+      <p class="qr-desc">Log ind og indberét<br>dit ugeresultat</p>
+      <div class="card-divider"></div>
+      <div class="qr-box" id="qr-report"></div>
+      <p class="qr-url">peluri-tipsklubben.onrender.com/report.html</p>
+    </div>
+
+  </div>
+</main>
+
+<script>
+  const opts = {
+    width:          220,
+    height:         220,
+    colorDark:      '#5C0F0F',
+    colorLight:     '#FFFFFF',
+    correctLevel:   QRCode.CorrectLevel.M
+  };
+
+  new QRCode(document.getElementById('qr-stilling'), {
+    ...opts,
+    text: 'https://peluri-tipsklubben.onrender.com/'
+  });
+
+  new QRCode(document.getElementById('qr-report'), {
+    ...opts,
+    text: 'https://peluri-tipsklubben.onrender.com/report.html'
+  });
+</script>
+
+</body>
+</html>

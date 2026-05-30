@@ -50,11 +50,16 @@ header::before {
   position: relative;
 }
 
+.logo-wrap {
+  background: #fff;
+  border-radius: 14px;
+  padding: 12px 28px;
+  box-shadow: 0 6px 28px rgba(0,0,0,0.25), 0 0 0 1px rgba(255,255,255,0.15);
+}
+
 .logo {
-  width: 220px;
+  width: 200px;
   display: block;
-  filter: brightness(0) invert(1);
-  opacity: 0.95;
 }
 
 .header-tagline {
@@ -151,13 +156,36 @@ main {
   box-shadow: 0 4px 32px rgba(92,15,15,0.10), 0 1px 4px rgba(92,15,15,0.06);
 }
 
+/* Historik table: compact season columns */
+#historik .data-table {
+  min-width: unset;
+  table-layout: fixed;
+  width: 100%;
+}
+
+#historik .data-table th,
+#historik .data-table td {
+  padding: 13px 10px;
+  font-size: 13px;
+}
+
+#historik .data-table th:first-child,
+#historik .data-table td:first-child {
+  width: 28%;
+}
+
+#historik .data-table th.num,
+#historik .data-table td.num {
+  font-size: 12px;
+}
+
 .data-table {
   width: 100%;
   border-collapse: collapse;
   background: var(--card);
   border-radius: 14px;
   overflow: hidden;
-  min-width: 380px;
+  min-width: 340px;
 }
 
 .data-table thead tr {

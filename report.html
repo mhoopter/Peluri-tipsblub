@@ -540,7 +540,6 @@ window.requestPushPermission = async function() {
     const token = await getToken(messaging, { vapidKey: VAPID_KEY, serviceWorkerRegistration: reg });
     if (token) {
       await api({ action: 'saveToken', name: currentMember, token });
-      checkNotifStatus();
     }
   } catch (e) {
     console.warn('Push fejl:', e);
@@ -590,7 +589,11 @@ if ('serviceWorker' in navigator) {
 const saved = localStorage.getItem('peluri_member');
 if (saved && MEMBERS.includes(saved)) {
   currentMember = saved;
-  // Vis login igen for sikkerhed — PIN kræves hver gang
+  showMain(); // Ingen PIN — auto-login direkte
+} else {
+  // Pre-select hvis gemt (men bruger skal stadig bekræfte)
+  const sel = document.getElementById('memberSelect');
+  if (saved) sel.value = saved;
 }
 </script>
 

@@ -362,9 +362,13 @@
   <div class="card" id="reportCard" style="display:none">
     <p class="card-title">Indberét resultat</p>
     <div id="reportError" class="error-msg">Noget gik galt — prøv igen</div>
+    <p style="font-size:13px;color:#666;line-height:1.5;margin-bottom:18px;">
+      Skriv den samlede gevinst inkl. det beløb du spillede for.<br>
+      <em>Eks: spillede for 200 kr og vandt 800 kr → skriv 800</em>
+    </p>
     <label>Gevinst denne uge (kr)</label>
     <div class="amount-wrap">
-      <input type="number" id="amountInput" inputmode="numeric" min="0" placeholder="0">
+      <input type="text" inputmode="numeric" pattern="[0-9]*" id="amountInput" placeholder="0" autocomplete="off">
       <span class="currency">kr</span>
     </div>
     <button class="btn btn-primary" onclick="submitReport(false)">Indberét gevinst</button>
@@ -405,8 +409,8 @@ const MEMBERS = [
 ];
 const ADMIN = 'Martin Hojgaard';
 
-// 2026/27 sæson — rotation starter 31. august 2026
-const SEASON_START = new Date('2026-08-31');
+// 2025/26 sæson — rotation starter 25. august 2025
+const SEASON_START = new Date('2025-08-25');
 // Rotationsorden for 2026/27
 const ROTATION = [
   'Ruhi Erdogan', 'Alexander Hansen', 'Frederick Larsen',

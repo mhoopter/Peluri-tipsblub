@@ -10,8 +10,8 @@ const SHEET_ID       = '1wTUtLvmatwqW4rMD3hKoVEBTkLtTtWor';
 const SHEET_STILLING = 'Aktuel Saeson 2025-26';
 const SHEET_TOKENS   = 'Push Tokens';   // oprettes automatisk
 
-// Rotationsorden 2026/27 — starter 31. august 2026
-const SEASON_START = new Date('2026-08-31');
+// Rotationsorden 2025/26 — starter 25. august 2025
+const SEASON_START = new Date('2025-08-25');
 const ROTATION = [
   'Ruhi Erdogan',
   'Alexander Hansen',
